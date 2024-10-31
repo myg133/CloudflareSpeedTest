@@ -17,7 +17,8 @@
 
 > 本项目也支持对**其他 CDN / 网站 IP** 延迟测速（如：[CloudFront](https://github.com/XIU2/CloudflareSpeedTest/discussions/304)、[Gcore](https://github.com/XIU2/CloudflareSpeedTest/discussions/303) CDN），但下载测速需自行寻找地址
 
-> 对于**代理套 Cloudflare CDN** 的用户，须知这应为**备用方案**，而不应该是**唯一方案**，请勿过度依赖 [#382](https://github.com/XIU2/CloudflareSpeedTest/discussions/382) [#383](https://github.com/XIU2/CloudflareSpeedTest/discussions/383)
+> [!IMPORTANT]
+> 对于**代理套 Cloudflare CDN** 的忠告，须知这应为**备用方案**，而不应该是**唯一方案**，请勿过度依赖 [#382](https://github.com/XIU2/CloudflareSpeedTest/discussions/382) [#383](https://github.com/XIU2/CloudflareSpeedTest/discussions/383)
 
 ****
 ## \# 快速使用
@@ -44,11 +45,10 @@ cd CloudflareST
 # 下载 CloudflareST 压缩包（自行根据需求替换 URL 中 [版本号] 和 [文件名]）
 wget -N https://github.com/XIU2/CloudflareSpeedTest/releases/download/v2.2.5/CloudflareST_linux_amd64.tar.gz
 # 如果你是在国内网络环境中下载，那么请使用下面这几个镜像加速之一：
-# wget -N https://download.scholar.rr.nu/XIU2/CloudflareSpeedTest/releases/download/v2.2.5/CloudflareST_linux_amd64.tar.gz
+# wget -N https://ghp.ci/https://github.com/XIU2/CloudflareSpeedTest/releases/download/v2.2.5/CloudflareST_linux_amd64.tar.gz
 # wget -N https://ghproxy.cc/https://github.com/XIU2/CloudflareSpeedTest/releases/download/v2.2.5/CloudflareST_linux_amd64.tar.gz
 # wget -N https://ghproxy.net/https://github.com/XIU2/CloudflareSpeedTest/releases/download/v2.2.5/CloudflareST_linux_amd64.tar.gz
 # wget -N https://gh-proxy.com/https://github.com/XIU2/CloudflareSpeedTest/releases/download/v2.2.5/CloudflareST_linux_amd64.tar.gz
-# wget -N https://mirror.ghproxy.com/https://github.com/XIU2/CloudflareSpeedTest/releases/download/v2.2.5/CloudflareST_linux_amd64.tar.gz
 # 如果下载失败的话，尝试删除 -N 参数（如果是为了更新，则记得提前删除旧压缩包 rm CloudflareST_linux_amd64.tar.gz ）
 
 # 解压（不需要删除旧文件，会直接覆盖，自行根据需求替换 文件名）
@@ -73,7 +73,8 @@ chmod +x CloudflareST
 
 > _在**手机**上独立运行 CloudflareST 测速的简单教程：**[Android](https://github.com/XIU2/CloudflareSpeedTest/discussions/61)、[Android APP](https://github.com/xianshenglu/cloudflare-ip-tester-app)、[IOS](https://github.com/XIU2/CloudflareSpeedTest/discussions/321)**_
 
-> 注意！本软件仅适用于网站，**不支持给 Cloudflare WARP 优选 IP**，具体见：[#392](https://github.com/XIU2/CloudflareSpeedTest/discussions/392)
+> [!NOTE]
+> 注意！本软件仅适用于网站，**不支持给使用 UDP 协议的 Cloudflare WARP 优选 IP**，具体见：[#392](https://github.com/XIU2/CloudflareSpeedTest/discussions/392)
 
 ### 结果示例
 
@@ -116,7 +117,7 @@ IP 地址           已发送  已接收  丢包率  平均延迟  下载速度 
 完整结果保存在当前目录下的 `result.csv` 文件中，用**记事本/表格软件**打开，格式如下：
 
 ```
-IP 地址, 已发送, 已接收, 丢包率, 平均延迟, 下载速度 (MB/s)
+IP 地址,已发送,已接收,丢包率,平均延迟,下载速度 (MB/s)
 104.27.200.69,4,4,0.00,146.23,28.64
 ```
 
@@ -127,7 +128,7 @@ IP 地址, 已发送, 已接收, 丢包率, 平均延迟, 下载速度 (MB/s)
 
 直接运行使用的是默认参数，如果想要测速结果更全面、更符合自己的要求，可以自定义参数。
 
-```css
+```Dart
 C:\>CloudflareST.exe -h
 
 CloudflareSpeedTest vX.X.X
@@ -188,22 +189,22 @@ https://github.com/XIU2/CloudflareSpeedTest
 
 ### 界面解释
 
-为了避免大家对测速过程中的**输出内容产生误解（可用、队列等数字，下载测速一半就"中断"？）**，我特意解释下。
+为了避免大家对测速过程中的**输出内容产生误解（可用、队列等数字，下载测速一半就"中断"？下载测速"卡住"不动？）**，我特意解释下。
 
 <details>
 <summary><code><strong>「 点击展开 查看内容 」</strong></code></summary>
 
 ****
 
-> 该实例把常用参数都给加上了，即为：`-ttl 40 -tl 150 -sl 1 -dn 5`，最后输出结果如下：
+> 该示例把常用参数都给加上了，即为：`-ttl 40 -tl 150 -sl 1 -dn 5`，最后输出结果如下：
 
-``` bash
+```python
 # XIU2/CloudflareSpeedTest vX.X.X
 
 开始延迟测速（模式：TCP, 端口：443, 范围：40 ~ 150 ms, 丢包：1.00)
-321 / 321 [----------------------------------------------------------------------------------] 可用: 30
+321 / 321 [-----------------------------------------------------------] 可用: 30
 开始下载测速（下限：1.00 MB/s, 数量：5, 队列：10）
-3 / 5 [---------------------------------------------------------↗---------------------------]
+3 / 5 [-----------------------------------------↗--------------------]
 IP 地址           已发送  已接收  丢包率  平均延迟  下载速度 (MB/s)
 XXX.XXX.XXX.XXX   4       4      0.00    83.32    3.66
 XXX.XXX.XXX.XXX   4       4      0.00    107.81   2.49
@@ -238,6 +239,12 @@ CloudflareST 会先延迟测速，在这过程中进度条右侧会实时显示�
 
 ****
 
+还有一种情况，那就是当可用 IP 很多时（几百几千），你还设置了下载速度条件，那么可能就会遇到：**怎么下载测速进度条老是卡在 `X / 5` 了呢？**
+
+这其实并不是卡住了，而是只有当找到一个满足条件的 IP 时，进度条才会 +1，因此如果一直找不到，那么 CloudflareST 就会一直下载测速下去，因此在表现为进度条卡住不动，但这也是在提醒你：你设置的下载速度条件对你来说已经高于实际了，你需要适当调低预期。
+
+****
+
 如果不想遇到这种全部测速一遍都没几个满足条件的情况，那么就要**调低下载速度上限参数 `-sl`**，或者移除。
 
 因为只要指定了 `-sl` 参数，那么只要没有凑够 `-dn` 的数量（默认 10 个），就会一直测速下去，直到凑够或全部测速完。移除 `-sl` 并添加 `-dn 20` 参数，这样就是只测速延迟最低的前 20 个 IP，测速完就停止，节省时间。
@@ -258,9 +265,10 @@ CloudflareST 会先延迟测速，在这过程中进度条右侧会实时显示�
 
 Windows 要指定参数需要在 CMD 中运行，或者把参数添加到快捷方式目标中。
 
-> **注意**：各参数均有**默认值**，使用默认值的参数是可以省略的（**按需选择**），参数**不分前后顺序**。  
-> **提示**：Windows **PowerShell** 只需把下面命令中的 `CloudflareST.exe` 改为 `.\CloudflareST.exe` 即可。  
-> **提示**：Linux 系统只需要把下面命令中的 `CloudflareST.exe` 改为 `./CloudflareST` 即可。
+> [!TIP]
+> - 各参数均有**默认值**，使用默认值的参数是可以省略的（**按需选择**），参数**不分前后顺序**。  
+> - Windows **PowerShell** 只需把下面命令中的 `CloudflareST.exe` 改为 `.\CloudflareST.exe` 即可。  
+> - Linux 系统只需要把下面命令中的 `CloudflareST.exe` 改为 `./CloudflareST` 即可。
 
 ****
 
@@ -637,7 +645,8 @@ CloudflareST.exe -f 1.txt
 如果你遇到什么问题，可以先去 [**Issues**](https://github.com/XIU2/CloudflareSpeedTest/issues)、[Discussions](https://github.com/XIU2/CloudflareSpeedTest/discussions) 里看看是否有别人问过了（记得去看下  [**Closed**](https://github.com/XIU2/CloudflareSpeedTest/issues?q=is%3Aissue+is%3Aclosed) 的）。  
 如果没找到类似问题，请新开个 [**Issues**](https://github.com/XIU2/CloudflareSpeedTest/issues/new) 来告诉我！
 
-> **注意**！_与 `反馈问题、功能建议` 无关的，请前往项目内部 论坛 讨论（上面的 `💬 Discussions`_  
+> [!NOTE]
+> **注意**！_与 CloudflareST 本身 `反馈问题、功能建议` 无关的，请前往项目内部 论坛 讨论（顶部的 `💬 Discussions`_  
 
 ****
 
